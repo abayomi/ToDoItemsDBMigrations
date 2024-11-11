@@ -17,7 +17,7 @@ module.exports = {
       },
       userEmailVerifiedAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        allowNull: true,
       },
       userPassword: {
         type: Sequelize.DataTypes.STRING,
@@ -31,7 +31,7 @@ module.exports = {
       },
       userSalt: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         unique: false,
       },
       createdAt: {
@@ -48,6 +48,30 @@ module.exports = {
         defaultValue: null, // Default to NULL
       },
     });
+    //   // Step 2: Alter the table to use hash partitioning on the 'userId' column
+    //   await queryInterface.sequelize.query(`
+    //     ALTER TABLE users
+    //     PARTITION BY HASH (userId);
+    //   `);
+
+    //   // Step 3: Create partitions for the hash ranges
+    //   await queryInterface.sequelize.query(`
+    //     CREATE TABLE users_p0 PARTITION OF users
+    //     FOR VALUES WITH (MODULUS 2, REMAINDER 0);
+    //   `);
+
+    //   await queryInterface.sequelize.query(`
+    //     CREATE TABLE users_p1 PARTITION OF users
+    //     FOR VALUES WITH (MODULUS 2, REMAINDER 1);
+    //   `);
+
+    //   await queryInterface.sequelize.query(`
+    //     ALTER TABLE users_p0 ADD CONSTRAINT users_p0_pk PRIMARY KEY (userId);
+    //   `);
+
+    //   await queryInterface.sequelize.query(`
+    //     ALTER TABLE users_p1 ADD CONSTRAINT users_p1_pk PRIMARY KEY (userId);
+    //   `);
   },
 
   async down(queryInterface, Sequelize) {

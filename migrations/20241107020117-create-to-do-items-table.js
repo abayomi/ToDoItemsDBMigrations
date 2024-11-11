@@ -25,7 +25,6 @@ module.exports = {
       deletedAt: {
         type: Sequelize.DATE, // This is the column that tracks soft deletion
         allowNull: true, // Allow NULL so that it won't be set unless the record is "soft-deleted"
-        defaultValue: null, // Default to NULL
       },
     });
   },
